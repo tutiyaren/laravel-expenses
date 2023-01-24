@@ -10,7 +10,7 @@
 docker-compose up -d
 ```
 
-### 3. 
+### 3. ライブラリのインストール
 
 ```
 //コンテナの中に入る
@@ -39,8 +39,8 @@ exit
 
 php
 
-[localhost:8000](http://localhost:8080)
+[localhost:8000](http://localhost:8000)
 
 PHPMyAdmin
 
-[localhost:4040](http://localhost:3306)
+[localhost:4040](http://localhost:4040)
