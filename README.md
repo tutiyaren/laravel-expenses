@@ -34,9 +34,17 @@ composer install
 ```
 //APP_KEYの設定
 php artisan key:generate
+```
+### 5. コンテナから出る
 
-//コンテナから出る
+```
 exit
+```
+
+### 6. Dockerコンテナの停止
+
+```
+docker-compose stop
 ```
 
 ## その他コマンド
