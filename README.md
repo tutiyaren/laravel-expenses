@@ -26,6 +26,9 @@ cd laravel-project
 
 //ライブラリのインストール
 composer install
+
+<img width="612" alt="5dd5a4b493d235b49129ba1caeab1a49" src="https://user-images.githubusercontent.com/52444199/233876644-2835aa75-9ae2-4ecf-a4cc-b302dc82f4c8.png">
+
 ```
 
 ### 4. APP_KEYの設定
