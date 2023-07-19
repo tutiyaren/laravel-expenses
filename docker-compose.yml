@@ -11,7 +11,9 @@ services:
     volumes:
       - .:/var/www
   nginx:
-    image: nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: ./Dockerfile
     container_name: nginx
     ports:
       - 8000:80
@@ -23,7 +25,9 @@ services:
       - app
   db:
     platform: linux/x86_64
-    image: mysql:5.7
+    build:
+      context: ./docker/db
+      dockerfile: ./Dockerfile
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -31,15 +35,15 @@ services:
       MYSQL_USER: db-user
       MYSQL_PASSWORD: db-pass
       TZ: 'Asia/Tokyo'
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
-      - ./docker/db/data:/var/lib/mysql
-      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./docker/db/sql:/docker-entrypoint-initdb.d
+      - laravel_mysql:/var/lib/mysql
     ports:
       - 3306:3306
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    build:
+      context: ./docker/phpmyadmin
+      dockerfile: ./Dockerfile
+    container_name: phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db #mysqlサービス名を指定
@@ -51,3 +55,7 @@ services:
       - 4040:80
     volumes:
       - ./phpmyadmin/sessions:/sessions
+
+volumes:
+  laravel_mysql:
+    driver: local
