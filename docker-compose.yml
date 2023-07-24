@@ -1,7 +1,6 @@
 version: '3'
 services:
   app:
-    container_name: app
     build:
       context: ./docker/php
       dockerfile: ./Dockerfile
@@ -14,7 +13,6 @@ services:
     build:
       context: ./docker/nginx
       dockerfile: ./Dockerfile
-    container_name: nginx
     ports:
       - 8000:80
     volumes:
@@ -28,7 +26,6 @@ services:
     build:
       context: ./docker/db
       dockerfile: ./Dockerfile
-    container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: database
@@ -43,7 +40,6 @@ services:
     build:
       context: ./docker/phpmyadmin
       dockerfile: ./Dockerfile
-    container_name: phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db #mysqlサービス名を指定
