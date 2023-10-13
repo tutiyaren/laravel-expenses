@@ -39,6 +39,8 @@ composer install
 php artisan key:generate
 ```
 
+<br>
+
 ## コンテナの止め方
 
 ### Dockerコンテナの停止
@@ -47,7 +49,7 @@ php artisan key:generate
 make stop
 ```
 
-## その他コマンド
+<br>
 
 ## ページ紹介
 
