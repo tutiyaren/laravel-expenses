@@ -21,8 +21,11 @@ use App\Http\Controllers\IncomeController;
 */
 
 Route::get('/register', [UserController::class, 'register'])->name('register');
-Route::get('/confirmed', [UserController::class, 'confirmed'])->name('confirmed');
+Route::post('/post', [UserController::class, 'confirmed'])->name('confirmed');
+Route::post('/signup', [UserController::class, 'signup'])->name('signup');
 Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::post('/signin', [UserController::class, 'signin'])->name('signin');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
 Route::get('/', [TopController::class, 'index'])->name('index');
@@ -30,7 +33,10 @@ Route::get('/', [TopController::class, 'index'])->name('index');
 
 Route::get('/category/index', [CategoryController::class, 'index'])->name('category.index');
 Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::get('/category/edit', [CategoryController::class, 'edit'])->name('category.edit');
+Route::post('/category/store', [CategoryController::class, 'store'])->name('category.store');
+Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::put('category/update', [CategoryController::class, 'update'])->name('category.update');
+Route::delete('/category/delete', [CategoryController::class, 'delete'])->name('category.delete');
 
 
 Route::get('/spending/index', [SpendingController::class, 'index'])->name('spending.index');

@@ -8,10 +8,13 @@
         <h1>カテゴリ追加</h1>
     </div>
     <!-- フォーム -->
-    <form action="" method="post">
+    <form action="{{ route('category.store') }}" method="post">
         @csrf
         <label for="categoryName">カテゴリ名 : </label>
-        <input type="text" id="categoryName" name="" value="" placeholder="カテゴリ名">
+        <input type="text" id="categoryName" name="name" value="{{ old('name') }}" placeholder="カテゴリ名">
+        @error('name')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
         <div>
             <button type="submit">登録</button>
         </div>

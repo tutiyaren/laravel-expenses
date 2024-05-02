@@ -15,6 +15,11 @@ class CreateSpendingsTable extends Migration
     {
         Schema::create('spendings', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->integer('category_id');
+            $table->string('name', 255);
+            $table->integer('amount');
+            $table->date('accrual_date');
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@
             @endif
 
             <!-- ログインフォーム -->
-            <form action="" method="post" class="form">
+            <form action="{{ route('signin') }}" method="post" class="form">
                 @csrf
                 <!-- Email -->
                 <div class="form-item">

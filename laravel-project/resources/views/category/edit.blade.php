@@ -8,11 +8,15 @@
         <h1>編集</h1>
     </div>
     <!-- フォーム -->
-    <form action="" method="post">
+    <form action="{{ route('category.update') }}" method="post">
         @method('put')
         @csrf
         <label for="categoryName">カテゴリ名 : </label>
-        <input type="text" id="categoryName" name="" value="" placeholder="カテゴリ名">
+        <input type="hidden" name="id" value="{{ $category->id }}">
+        <input type="text" id="categoryName" name="name" value="{{ $category->name }}" placeholder="カテゴリ名">
+        @error('name')
+            <p style="color: red;">{{ $message }}</p>
+        @enderror
         <div>
             <button type="submit">更新</button>
         </div>

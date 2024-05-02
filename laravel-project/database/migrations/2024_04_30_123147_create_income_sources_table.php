@@ -15,6 +15,8 @@ class CreateIncomeSourcesTable extends Migration
     {
         Schema::create('income_sources', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
+            $table->string('name', 255);
             $table->timestamps();
         });
     }

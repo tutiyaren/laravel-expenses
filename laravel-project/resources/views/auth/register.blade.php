@@ -18,7 +18,7 @@
             </div>
 
             <!-- 会員登録フォーム -->
-            <form action="" method="post" class="form">
+            <form action="{{ route('confirmed') }}" method="post" class="form">
                 @csrf
                 <!-- Name -->
                 <div class="form-item">

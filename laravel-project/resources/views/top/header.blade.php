@@ -22,7 +22,7 @@
             <div class="link">
                 <a href="{{ route('spending.index') }}" class="link-spending">支出TOP</a>
             </div>
-            <form action="" method="post" class="form">
+            <form action="{{ route('logout') }}" method="post" class="form">
                 @csrf
                 <button type="submit" class="form-logout">ログアウト</button>
             </form>

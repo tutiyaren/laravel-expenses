@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'name'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function spendings()
+    {
+        return $this->hasMany(Spending::class);
+    }
 }

@@ -20,22 +20,24 @@
             <th>編集</th>
             <th>削除</th>
         </tr>
+        @foreach($categories as $category)
         <tr>
             <td>
-                動物
+                {{ $category->name }}
             </td>
             <td>
-                <a href="{{ route('category.edit') }}">編集</a>
+                <a href="{{ route('category.edit', $category->id) }}">編集</a>
             </td>
             <td>
-                <form action="" method="post">
+                <form action="{{ route('category.delete') }}" method="post">
                     @method('delete')
                     @csrf
-                    <input type="hidden" name="" value="">
+                    <input type="hidden" name="id" value="{{ $category->id }}">
                     <button type="submit">削除</button>
                 </form>
             </td>
         </tr>
+        @endforeach
     </table>
     <!-- 戻るリンク -->
     <div>

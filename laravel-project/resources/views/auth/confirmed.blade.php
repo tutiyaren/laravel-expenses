@@ -18,22 +18,22 @@
             </div>
 
             <!-- 会員登録確認フォーム -->
-            <form action="" method="post" class="form">
+            <form action="{{ route('signup') }}" method="post" class="form">
                 @csrf
                 <!-- Name -->
                 <div class="form-item">
                     <p>ユーザー名：</p>
-                    <input type="text" class="input" name="name" value="{{ old('name') }}" readonly>
+                    <input type="text" class="input" name="name" value="{{ $user['name'] }}" readonly>
                 </div>
                 <!-- Email -->
                 <div class="form-item">
                     <p>メールアドレス：</p>
-                    <input type="email" class="input" name="email" value="{{ old('email') }}" readonly>
+                    <input type="text" class="input" name="email" value="{{ $user['email'] }}" readonly>
                 </div>
                 <!-- PS -->
                 <div class="form-item">
                     <p>パスワード：</p>
-                    <input type="password" class="input" name="password" readonly>
+                    <input type="text" class="input" name="password" value="{{ $user['password'] }}" readonly>
                 </div>
                 <!-- 送信ボタン -->
                 <div class="form-item">
