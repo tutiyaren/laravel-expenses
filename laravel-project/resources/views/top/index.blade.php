@@ -8,10 +8,12 @@
         <h1 class="ttl-top">家計簿アプリ</h1>
     </div>
     <!-- 年毎の検索 -->
-    <form action="" method="get">
+    <form action="{{ route('index') }}" method="get">
         @csrf
-        <select name="">
-            <option value="">2018</option>
+        <select name="year">
+            @foreach($years as $year)
+            <option value="{{ $year }}" {{ $selectedYear == $year ? 'selected' : '' }}>{{ $year }}</option>
+            @endforeach
         </select>
         <span>年の収支一覧</span>
         <button type="submit">検索</button>
@@ -24,20 +26,22 @@
             <th>支出</th>
             <th>収支</th>
         </tr>
+        @foreach(range(1, 12) as $month)
         <tr>
             <td>
-                1
+                {{ $month }}
             </td>
             <td>
-                0
+                {{ $monthIncomes[$selectedYear][$month] ?? 0 }}
             </td>
             <td>
-                0
+                {{ $monthSpendings[$selectedYear][$month] ?? 0 }}
             </td>
             <td>
-                0
+                {{ ($monthIncomes[$selectedYear][$month] ?? 0) - ($monthSpendings[$selectedYear][$month] ?? 0) }}
             </td>
         </tr>
+        @endforeach
     </table>
 </div>
 

@@ -13,7 +13,7 @@ class IncomeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,20 @@ class IncomeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'income_source_id' => 'required',
+            'amount' => 'required|integer',
+            'accrual_date' => 'required|date'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'income_source_id.required' => '収入源を選択してください',
+            'amount.required' => '金額を入力してください',
+            'amount.integer' => '金額は数値で入力してください',
+            'accrual_date.required' => '日付を入力してください',
+            'accrual_date.date' => '日付の形式で入力してください'
         ];
     }
 }

@@ -14,6 +14,9 @@
         <a href="{{ route('category.create') }}">カテゴリを追加する</a>
     </div>
     <!-- カテゴリ一覧 -->
+    @if(session('error'))
+    <p style="color: red;">{{ session('error') }}</p>
+    @endif
     <table border="1">
         <tr>
             <th>カテゴリ</th>

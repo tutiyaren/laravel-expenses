@@ -13,7 +13,7 @@ class Income_sourceRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class Income_sourceRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|max:255'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '収入源を入力してください',
+            'name.string' => '収入源を文字列で入力してください',
+            'name.max' => '収入源は255文字以内で入力してください',
         ];
     }
 }

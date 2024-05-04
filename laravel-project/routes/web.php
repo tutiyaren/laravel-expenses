@@ -40,18 +40,27 @@ Route::delete('/category/delete', [CategoryController::class, 'delete'])->name('
 
 
 Route::get('/spending/index', [SpendingController::class, 'index'])->name('spending.index');
+Route::post('/spending/store', [SpendingController::class, 'store'])->name('spending.store');
 Route::get('/spending/create', [SpendingController::class, 'create'])->name('spending.create');
-Route::get('/spending/edit', [SpendingController::class, 'edit'])->name('spending.edit');
+Route::get('/spending/edit/{id}', [SpendingController::class, 'edit'])->name('spending.edit');
+Route::put('spending/update', [SpendingController::class, 'update'])->name('spending.update');
+Route::delete('/spending/delete', [SpendingController::class, 'delete'])->name('spending.delete');
 
 
 Route::get('/income_source/index', [IncomeSourceController::class, 'index'])->name('income_source.index');
 Route::get('/income_source/create', [IncomeSourceController::class, 'create'])->name('income_source.create');
-Route::get('/income_source/edit', [IncomeSourceController::class, 'edit'])->name('income_source.edit');
+Route::post('/income_source/store', [IncomeSourceController::class, 'store'])->name('income_source.store');
+Route::get('/income_source/edit/{id}', [IncomeSourceController::class, 'edit'])->name('income_source.edit');
+Route::put('income_source/update', [IncomeSourceController::class, 'update'])->name('income_source.update');
+Route::delete('/income_source/delete', [IncomeSourceController::class, 'delete'])->name('income_source.delete');
 
 
 Route::get('/income/index', [IncomeController::class, 'index'])->name('income.index');
 Route::get('/income/create', [IncomeController::class, 'create'])->name('income.create');
-Route::get('/income/edit', [IncomeController::class, 'edit'])->name('income.edit');
+Route::post('/income/store', [IncomeController::class, 'store'])->name('income.store');
+Route::get('/income/edit/{id}', [IncomeController::class, 'edit'])->name('income.edit');
+Route::put('income/update', [IncomeController::class, 'update'])->name('income.update');
+Route::delete('/income/delete', [IncomeController::class, 'delete'])->name('income.delete');
 
 
 

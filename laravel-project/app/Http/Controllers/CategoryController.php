@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Spending;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::get();
+        $userId = auth()->user()->id;
+        $query = Category::where('user_id', $userId);
+        $categories = $query->get();
         return view('category.index', compact('categories'));
     }
 
@@ -49,6 +52,10 @@ class CategoryController extends Controller
     public function delete(Request $request)
     {
         $categoryId = $request->input('id');
+        $usedInSpendings = Spending::where('category_id', $categoryId)->exists();
+        if ($usedInSpendings) {
+            return redirect()->back()->with('error', 'このカテゴリーは支出に使用されているため、削除できません。');
+        }
         $category = Category::find($categoryId);
         $category->delete();
         return redirect()->route('category.index');
