@@ -18,7 +18,7 @@ class SpendingController extends Controller
     public function index(Request $request)
     {
         $userId = auth()->user()->id;
-        $categories = Category::get();
+        $categories = Category::where('user_id', $userId)->get();
         $category_id = $request->input('category_id');
         $start_date = $request->input('from');
         $end_date = $request->input('until');
@@ -40,7 +40,7 @@ class SpendingController extends Controller
 
     public function create(GetCreateSpending $case)
     {
-        $categories = $case();
+        $categories = $case(auth()->id());
         return view('spending.create', compact('categories'));
     }
 

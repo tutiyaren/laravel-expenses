@@ -4,8 +4,8 @@ use App\Models\Income_source;
 
 class GetCreateIncome
 {
-    public function __invoke()
+    public function __invoke($userId)
     {
-        return Income_source::get();
+        return Income_source::where('user_id', $userId)->get();
     }
 }

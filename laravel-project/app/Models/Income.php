@@ -46,9 +46,10 @@ class Income extends Model
         return $query;
     }
 
-    public static function getYearlyData()
+    public static function getYearlyData($userId)
     {
-        return static::selectRaw('YEAR(accrual_date) as year, MONTH(accrual_date) as month, SUM(amount) as total')
+        return static::where('user_id', $userId)
+            ->selectRaw('YEAR(accrual_date) as year, MONTH(accrual_date) as month, SUM(amount) as total')
             ->groupBy('year', 'month')
             ->get();
     }

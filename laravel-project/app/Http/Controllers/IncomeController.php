@@ -27,13 +27,13 @@ class IncomeController extends Controller
             ->DateSearch($start_date, $end_date);
         $incomes = $query->get();
         $totalAmount = $incomes->sum('amount');
-        $income_sources = Income_source::get();
+        $income_sources = Income_source::where('user_id', $userId)->get();
         return view('income.index', compact('incomes', 'totalAmount', 'income_sources'));
     }
 
     public function create(GetCreateIncome $case)
     {
-        $income_sources = $case();
+        $income_sources = $case(auth()->id());
         return view('income.create', compact('income_sources'));
     }
 

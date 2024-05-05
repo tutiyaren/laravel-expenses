@@ -4,8 +4,8 @@ use App\Models\Category;
 
 class GetCreateSpending
 {
-    public function __invoke()
+    public function __invoke($userId)
     {
-        return Category::get();
+        return Category::where('user_id', $userId)->get();
     }
 }
