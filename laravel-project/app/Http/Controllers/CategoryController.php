@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
-use App\Models\Spending;
-use Illuminate\Support\Facades\Auth;
+use App\UseCase\category\CreateCategory;
+use App\UseCase\category\EditCategory;
+use App\UseCase\category\DeleteCategory;
+use App\UseCase\category\GetEditCategory;
+use App\UseCase\category\GetAllCategory;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(GetAllCategory $case)
     {
-        $userId = auth()->user()->id;
-        $query = Category::where('user_id', $userId);
-        $categories = $query->get();
+        $categories = $case();
         return view('category.index', compact('categories'));
     }
 
@@ -23,41 +23,28 @@ class CategoryController extends Controller
         return view('category.create');
     }
 
-    public function store(CategoryRequest $request)
+    public function store(CategoryRequest $request, CreateCategory $case)
     {
-        $category = new Category();
-        $category->user_id = Auth::id();
-        $category->name = $request->name;
-        $category->save();
-
+        $case($request);
         return redirect()->route('category.index');
     }
 
-    public function edit($id)
+    public function edit($id, GetEditCategory $case)
     {
-        $category = Category::find($id);
+        $category = $case($id);
         return view('category.edit', compact('category'));
     }
 
-    public function update(CategoryRequest $request)
+    public function update(CategoryRequest $request, EditCategory $case)
     {
         $categoryId = $request->input('id');
-        $categoryName = $request->input('name');
-        $category = Category::find($categoryId);
-        $category->name = $categoryName;
-        $category->save();
+        $case($request, $categoryId);
         return redirect()->route('category.index');
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, DeleteCategory $case)
     {
-        $categoryId = $request->input('id');
-        $usedInSpendings = Spending::where('category_id', $categoryId)->exists();
-        if ($usedInSpendings) {
-            return redirect()->back()->with('error', 'このカテゴリーは支出に使用されているため、削除できません。');
-        }
-        $category = Category::find($categoryId);
-        $category->delete();
+        $case($request);
         return redirect()->route('category.index');
     }
 }

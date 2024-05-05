@@ -7,6 +7,12 @@ use App\Http\Requests\IncomeRequest;
 use App\Models\Income_source;
 use App\Models\Income;
 use Illuminate\Support\Facades\Auth;
+use App\UseCase\income\CreateIncome;
+use App\UseCase\income\EditIncome;
+use App\UseCase\income\DeleteIncome;
+use App\UseCase\income\GetEditIncome;
+use App\UseCase\income\GetCreateIncome;
+use App\UseCase\income\GetAllIncome;
 
 class IncomeController extends Controller
 {
@@ -25,49 +31,33 @@ class IncomeController extends Controller
         return view('income.index', compact('incomes', 'totalAmount', 'income_sources'));
     }
 
-    public function create()
+    public function create(GetCreateIncome $case)
     {
-        $income_sources = Income_source::get();
+        $income_sources = $case();
         return view('income.create', compact('income_sources'));
     }
 
-    public function store(IncomeRequest $request)
+    public function store(IncomeRequest $request, CreateIncome $case)
     {
-        $income = new Income();
-        $income->user_id = Auth::id();
-        $income->income_source_id = $request->input('income_source_id');
-        $income->amount = $request->input('amount');
-        $income->accrual_date = $request->input('accrual_date');
-        $income->save();
+        $case($request);
         return redirect()->route('income.index');
     }
 
-    public function edit($id)
+    public function edit($id, GetEditIncome $case)
     {
-        $income = Income::find($id);
-        $income_sources = Income_source::get();
+        list($income, $income_sources) = $case($id);
         return view('income.edit', compact('income', 'income_sources'));
     }
 
-    public function update(IncomeRequest $request)
+    public function update(IncomeRequest $request, EditIncome $case)
     {
-        $incomeId = $request->input('id');
-        $incomeIncome_source = $request->input('income_source_id');
-        $incomeAmount = $request->input('amount');
-        $incomeDate = $request->input('accrual_date');
-        $income = Income::find($incomeId);
-        $income->income_source_id = $incomeIncome_source;
-        $income->amount = $incomeAmount;
-        $income->accrual_date = $incomeDate;
-        $income->save();
+        $case($request);
         return redirect()->route('income.index');
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, DeleteIncome $case)
     {
-        $incomeId = $request->input('id');
-        $income = Income::find($incomeId);
-        $income->delete();
+        $case($request);
         return redirect()->route('income.index');
     }
 }

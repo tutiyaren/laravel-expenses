@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SpendingRequest;
 use App\Models\Category;
 use App\Models\Spending;
-use Illuminate\Support\Facades\Auth;
+use App\UseCase\spending\CreateSpending;
+use App\UseCase\spending\EditSpending;
+use App\UseCase\spending\DeleteSpending;
+use App\UseCase\spending\GetEditSpending;
+use App\UseCase\spending\GetCreateSpending;
+use App\UseCase\spending\GetAllSpending;
 
 class SpendingController extends Controller
 {
@@ -33,52 +38,33 @@ class SpendingController extends Controller
         return view('spending.index', compact('spendings', 'totalAmount', 'categories'));
     }
 
-    public function create()
+    public function create(GetCreateSpending $case)
     {
-        $categories = Category::get();
+        $categories = $case();
         return view('spending.create', compact('categories'));
     }
 
-    public function store(SpendingRequest $request)
+    public function store(SpendingRequest $request, CreateSpending $case)
     {
-        $spending = new Spending();
-        $spending->user_id = Auth::id();
-        $spending->category_id = $request->input('category_id');
-        $spending->name = $request->input('name');
-        $spending->amount = $request->input('amount');
-        $spending->accrual_date = $request->input('accrual_date');
-        $spending->save();
+        $case($request);
         return redirect()->route('spending.index');
     }
 
-    public function edit($id)
+    public function edit($id, GetEditSpending $case)
     {
-        $spending = Spending::find($id);
-        $categories = Category::get();
+        list($spending, $categories) = $case($id);
         return view('spending.edit', compact('spending', 'categories'));
     }
 
-    public function update(SpendingRequest $request)
+    public function update(SpendingRequest $request, EditSpending $case)
     {
-        $spendingId = $request->input('id');
-        $spendingName = $request->input('name');
-        $spendingCategory = $request->input('category_id');
-        $spendingAmount = $request->input('amount');
-        $spendingDate = $request->input('accrual_date');
-        $spending = Spending::find($spendingId);
-        $spending->name = $spendingName;
-        $spending->category_id = $spendingCategory;
-        $spending->amount = $spendingAmount;
-        $spending->accrual_date = $spendingDate;
-        $spending->save();
+        $case($request);
         return redirect()->route('spending.index');
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, DeleteSpending $case)
     {
-        $spendingId = $request->input('id');
-        $spending = Spending::find($spendingId);
-        $spending->delete();
+        $case($request);
         return redirect()->route('spending.index');
     }
 }
