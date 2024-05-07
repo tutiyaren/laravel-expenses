@@ -16,18 +16,9 @@ use App\UseCase\income\GetAllIncome;
 
 class IncomeController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, GetAllIncome $case)
     {
-        $userId = auth()->user()->id;
-        $income_source_id = $request->input('income_source_id');
-        $start_date = $request->input('start_date');
-        $end_date = $request->input('end_date');
-        $query = Income::where('user_id', $userId)
-            ->IncomeSourceSearch($income_source_id)
-            ->DateSearch($start_date, $end_date);
-        $incomes = $query->get();
-        $totalAmount = $incomes->sum('amount');
-        $income_sources = Income_source::where('user_id', $userId)->get();
+        list($incomes, $totalAmount, $income_sources) = $case($request);
         return view('income.index', compact('incomes', 'totalAmount', 'income_sources'));
     }
 

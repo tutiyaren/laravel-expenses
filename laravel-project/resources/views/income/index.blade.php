@@ -24,8 +24,8 @@
                 <span>収入源 : </span>
                 <select name="income_source_id" id="income_source_id">
                     <option disabled selected value="">収入源を選択してください</option>
-                    @foreach($income_sources as $id => $income_source)
-                    <option value="{{ $id+1 }}">{{ $income_source->name }}</option>
+                    @foreach($income_sources as $income_source)
+                    <option value="{{ $income_source->id }}" {{ $income_source->id == request('income_source_id') ? 'selected' : '' }}>{{ $income_source->name }}</option>
                     @endforeach
                 </select>
                 <span>日付 : </span>

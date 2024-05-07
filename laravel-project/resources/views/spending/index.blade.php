@@ -22,18 +22,18 @@
             @csrf
             <span>カテゴリー : </span>
             <select name="category_id">
-                <option disabled selected style="display: none;">カテゴリーを選択してください</option>
+                <option style="display: none;">カテゴリーを選択してください</option>
                 @foreach($categories as $category)
-                <option value="{{ $category->id }}">
+                <option value="{{ $category->id }}" {{ $category->id == request('category_id') ? 'selected' : '' }}>
                     {{ $category->name }}
                 </option>
                 @endforeach
             </select>
             <span>日付 : </span>
-            <input type="date" name="from" value="{{ old('from') }}">
-                <span> ~ </span>
-            <input type="date" name="until" value="{{ old('until') }}">
-            <button type="submit">検索</button>
+            <input type="date" name="from" value="{{ request('from') }}">
+            <span> ~ </span>
+            <input type="date" name="until" value="{{ request('until') }}">
+            <button type=" submit">検索</button>
         </form>
     </div>
     <!-- 支出一覧 -->
