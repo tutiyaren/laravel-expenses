@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.header,
+.main {
+    width: 100%;
+}
+.header-inner {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2%;
+    background-color: rgb(101, 101, 247);
+    padding-bottom: 2%;
+}
+.link-home,
+.link-income,
+.link-spending {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+.form-logout {
+    color: white;
+    cursor: pointer;
+    border: none;
+    background-color: rgb(101, 101, 247);
+}
